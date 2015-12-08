@@ -57,8 +57,7 @@ class CernRootConan(ConanFile):
         self.copy(pattern="*", dst="etc", src="%s/_build/etc" % self.folder, keep_path=True)
         
         # Headers
-        self.copy(pattern="*.h", dst="include", src="%s/_build/include" % self.folder, keep_path=False)
-        self.copy(pattern="*.h", dst="include", src="%s/include" % self.folder, keep_path=False)
+        self.copy(pattern="*.h", dst="include", src="%s/_build/include" % self.folder, keep_path=True)
         
         # Win
         self.copy(pattern="*.dll", dst="bin", src="%s/_build/" % self.folder, keep_path=False)
