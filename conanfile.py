@@ -95,4 +95,4 @@ class CernRootConan(ConanFile):
 
         elif self.settings.os == "Macos":
             self.cpp_info.libs.extend(["m", "dl", "pthread"])
-            self.cpp_info.cppflags.extend(["-std=c++11",  "-pthread", "-stdlib=libc++"])
+            self.cpp_info.cppflags.extend(["-pthread", "-stdlib=libc++", "-std=c++11"])

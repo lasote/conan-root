@@ -15,15 +15,15 @@ if __name__ == "__main__":
     compiler = " "
 
     # x86_64
-    test(compiler + '-s build_type=Debug -s arch=x86_64 -o root:shared=False')
     test(compiler + '-s build_type=Release -s arch=x86_64 -o root:shared=False')
-
-    test(compiler + '-s build_type=Debug -s arch=x86_64 -o root:shared=True')
+    #test(compiler + '-s build_type=Debug -s arch=x86_64 -o root:shared=False')
+   
+    #test(compiler + '-s build_type=Debug -s arch=x86_64 -o root:shared=True')
     test(compiler + '-s build_type=Release -s arch=x86_64 -o root:shared=True')
 
     # x86
-    test(compiler + '-s build_type=Debug -s arch=x86 -o root:shared=False')
+    #test(compiler + '-s build_type=Debug -s arch=x86 -o root:shared=False')
     test(compiler + '-s build_type=Release -s arch=x86 -o root:shared=False')
     
-    test(compiler + '-s build_type=Debug -s arch=x86 -o root:shared=True')
+    #test(compiler + '-s build_type=Debug -s arch=x86 -o root:shared=True')
     test(compiler + '-s build_type=Release -s arch=x86 -o root:shared=True')
