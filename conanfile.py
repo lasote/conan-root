@@ -28,11 +28,12 @@ class CernRootConan(ConanFile):
         shutil.move("CMakeLists.txt", "%s/CMakeLists.txt" % self.folder)
 
     def build(self):
-        """ Define your project building. You decide the way of building it
-            to reuse it later in any other project.
-        """
+        """ https://root.cern.ch/building-root
+            https://root.cern.ch/build-prerequisites """
         cmake = CMake(self.settings)
          # Build
+        if self.settings.os == "Macos":
+            self.output.warn("Detected OSX. Please execute:  'xcode-select --install' if your build fails in configure")
         self.run("cd %s &&  mkdir _build" % self.folder)
         configure_command = 'cd %s/_build && cmake .. %s' % (self.folder, cmake.command_line)
         self.output.warn("Configure with: %s" % configure_command)
@@ -91,3 +92,5 @@ class CernRootConan(ConanFile):
             self.cpp_info.libs.extend(["m", "dl"])
             self.cpp_info.cppflags.extend(["-std=c++11", "-pthread", "-rdynamic"]) 
 
+        if "clang" in str(self.settings.compiler):
+            self.cpp_info.cppflags.extend(["-std=c++11","-stdlib=libc++"])

@@ -8,11 +8,7 @@ using namespace std;
 
 void random_mean(Int_t nums)
 {
-  cout << "hola1?" << endl;
-  std::flush(std::cout);
   TRandom *R = new TRandom(time(0));
-  cout << "hola2?" << endl;
-  std::flush(std::cout);
   Double_t *seed = new Double_t[nums];
   for (Int_t i = 0; i < nums; i++)
   {
@@ -36,8 +32,6 @@ void random_mean()
 
 int main(int argc, char **argv)
 {
-  cout << "main?" << endl;
-  std::flush(std::cout);
   
   if (argc == 1)  // no parameter given
   {
