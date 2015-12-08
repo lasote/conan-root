@@ -86,11 +86,13 @@ class CernRootConan(ConanFile):
 #                               "unordered_multimapDict", "unordered_multisetDict", "unordered_setDict", "valarrayDict", 
 #                               "vectorDict", "VMC", "X3d", "XMLIO", "XMLParser"]
 #         
+        # ./root-config --cflags --glibs
         self.cpp_info.libs = ["Gui", "Core", "RIO", "Net", "Hist", "Graf", "Graf3d", "Gpad", 
                               "Tree", "Rint", "Postscript", "Matrix", "Physics", "MathCore", "Thread"]
         if self.settings.os == "Linux":
             self.cpp_info.libs.extend(["m", "dl"])
             self.cpp_info.cppflags.extend(["-std=c++11", "-pthread", "-rdynamic"]) 
 
-        if "clang" in str(self.settings.compiler):
-            self.cpp_info.cppflags.extend(["-std=c++11","-stdlib=libc++"])
+        elif self.settings.os == "Macos":
+            self.cpp_info.libs.extend(["m", "dl", "pthread"])
+            self.cpp_info.cppflags.extend(["-std=c++11",  "-pthread", "-stdlib=libc++"])
