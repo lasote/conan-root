@@ -9,8 +9,6 @@ class CernRootConan(ConanFile):
     version = "6.04.12"
     folder = "root-%s" % version
     settings = "os", "arch", "compiler", "build_type"
-    options = {"shared": [True, False]}
-    default_options = "shared=True"
     exports = "CMakeLists.txt"
     generators = "cmake"
     url="http://github.com/lasote/conan-root"    
@@ -64,12 +62,9 @@ class CernRootConan(ConanFile):
         self.copy(pattern="*.lib", dst="lib", src="%s/_build/" % self.folder, keep_path=False)
         
         # UNIX
-
-        if not self.options.shared:
-            self.copy(pattern="*.a", dst="lib", src="%s/_build/lib/" % self.folder, keep_path=False)   
-        else:
-            self.copy(pattern="*.so*", dst="lib", src="%s/_build/lib/" % self.folder, keep_path=False)
-            self.copy(pattern="*.dylib*", dst="lib", src="%s/_build/lib/" % self.folder, keep_path=False)
+        self.copy(pattern="*.a", dst="lib", src="%s/_build/lib/" % self.folder, keep_path=False)   
+        self.copy(pattern="*.so*", dst="lib", src="%s/_build/lib/" % self.folder, keep_path=False)
+        self.copy(pattern="*.dylib*", dst="lib", src="%s/_build/lib/" % self.folder, keep_path=False)
 
     def package_info(self):  
         
