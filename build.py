@@ -16,5 +16,3 @@ if __name__ == "__main__":
 
     # x86_64
     test(compiler + '-s build_type=Release -s arch=x86_64')
-    # x86
-    test(compiler + '-s build_type=Release -s arch=x86')
