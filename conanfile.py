@@ -57,14 +57,8 @@ class CernRootConan(ConanFile):
         # Headers
         self.copy(pattern="*.h", dst="include", src="%s/_build/include" % self.folder, keep_path=True)
         
-        # Win
-        self.copy(pattern="*.dll", dst="bin", src="%s/_build/" % self.folder, keep_path=False)
-        self.copy(pattern="*.lib", dst="lib", src="%s/_build/" % self.folder, keep_path=False)
-        
-        # UNIX
-        self.copy(pattern="*.a", dst="lib", src="%s/_build/lib/" % self.folder, keep_path=False)   
-        self.copy(pattern="*.so*", dst="lib", src="%s/_build/lib/" % self.folder, keep_path=False)
-        self.copy(pattern="*.dylib*", dst="lib", src="%s/_build/lib/" % self.folder, keep_path=False)
+        # Libs
+        self.copy(pattern="*", dst="lib", src="%s/_build/lib" % self.folder, keep_path=False)
 
     def package_info(self):  
         
