@@ -1,5 +1,5 @@
 from conans import ConanFile
-from conans.tools import download, unzip
+from conans.tools import download, unzip, replace_in_file
 import os
 import shutil
 from conans import CMake
@@ -11,10 +11,11 @@ class CernRootConan(ConanFile):
     settings = "os", "arch", "compiler", "build_type"
     exports = "CMakeLists.txt"
     generators = "cmake"
-    url="http://github.com/lasote/conan-root"    
+    url="http://github.com/lasote/conan-root"
+      
 
     def config(self):
-        pass
+        self.requires.add("zlib/1.2.8@lasote/stable", private=False)
     
     def source(self):
         
@@ -22,8 +23,13 @@ class CernRootConan(ConanFile):
         download("https://root.cern.ch/download/%s" % zip_name, zip_name)
         unzip(zip_name)
         os.unlink(zip_name)
-        shutil.move("%s/CMakeLists.txt" % self.folder, "%s/CMakeListsOriginal.cmake" % self.folder)
-        shutil.move("CMakeLists.txt", "%s/CMakeLists.txt" % self.folder)
+        cmake_append = '''
+include(${CMAKE_CURRENT_SOURCE_DIR}/../conanbuildinfo.cmake)
+CONAN_BASIC_SETUP()
+'''
+        replace_in_file("%s/CMakeLists.txt" % self.folder, "project(ROOT)", "project(ROOT)%s" % cmake_append)
+        # Keep conan CMAKE_MODULE_PATH
+        replace_in_file("%s/CMakeLists.txt" % self.folder, "set(CMAKE_MODULE_PATH", "set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH}")
 
     def build(self):
         """ https://root.cern.ch/building-root
@@ -32,8 +38,11 @@ class CernRootConan(ConanFile):
          # Build
         if self.settings.os == "Macos":
             self.output.warn("Detected OSX. Please execute:  'xcode-select --install' if your build fails in configure")
+        
+        
+        
         self.run("cd %s &&  mkdir _build" % self.folder)
-        configure_command = 'cd %s/_build && cmake .. %s' % (self.folder, cmake.command_line)
+        configure_command = 'cd %s/_build && cmake .. %s -Dbuiltin_zlib=OFF' % (self.folder, cmake.command_line)
         self.output.warn("Configure with: %s" % configure_command)
         self.run(configure_command)
         self.run("cd %s/_build && cmake --build . %s" % (self.folder, cmake.build_config))

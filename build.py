@@ -13,6 +13,8 @@ if __name__ == "__main__":
             exit("Error while executing:\n\t %s" % command)
 
     compiler = " "
-
-    # x86_64
-    test(compiler + '-s build_type=Release -s arch=x86_64')
+    if platform.system() == "Windows":
+        test(compiler + '-s build_type=Release -s arch=x86')
+    else:
+        # x86_64
+        test(compiler + '-s build_type=Release -s arch=x86_64')
