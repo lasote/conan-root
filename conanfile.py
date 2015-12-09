@@ -84,12 +84,18 @@ CONAN_BASIC_SETUP()
 #                               "vectorDict", "VMC", "X3d", "XMLIO", "XMLParser"]
 #         
         # ./root-config --cflags --glibs
-        self.cpp_info.libs = ["Gui", "Core", "RIO", "Net", "Hist", "Graf", "Graf3d", "Gpad", 
+        tmp_libs = ["Gui", "Core", "RIO", "Net", "Hist", "Graf", "Graf3d", "Gpad", 
                               "Tree", "Rint", "Postscript", "Matrix", "Physics", "MathCore", "Thread"]
         if self.settings.os == "Linux":
+            self.cpp_info.libs.extend(tmp_libs)
             self.cpp_info.libs.extend(["m", "dl"])
             self.cpp_info.cppflags.extend(["-std=c++11", "-pthread", "-rdynamic"]) 
 
         elif self.settings.os == "Macos":
+            self.cpp_info.libs.extend(tmp_libs)
             self.cpp_info.libs.extend(["m", "dl", "pthread"])
             self.cpp_info.cppflags.extend(["-pthread", "-stdlib=libc++", "-std=c++11"])
+            
+        elif self.settings.os == "Windows":
+            self.cpp_info.libs.extend(["lib%s" % lib for lib in tmp_libs])
+

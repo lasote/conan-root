@@ -3,6 +3,7 @@
 # include <cstdlib>  // needed to convert string argument to integer
 # include <iostream>
 # include "TRandom.h"
+# include "time.h"
 
 using namespace std;
 
