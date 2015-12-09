@@ -6,7 +6,7 @@ from conans import CMake
 
 class CernRootConan(ConanFile):
     name = "root"
-    version = "6.04.12"
+    version = "5.34.34"
     folder = "root-%s" % version
     settings = "os", "arch", "compiler", "build_type"
     exports = "CMakeLists.txt"
