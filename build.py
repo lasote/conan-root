@@ -14,7 +14,13 @@ if __name__ == "__main__":
 
     compiler = " "
     if platform.system() == "Windows":
+        compiler = '-s compiler="Visual Studio" -s compiler.version=12 '
         test(compiler + '-s build_type=Release -s arch=x86')
+        test(compiler + '-s build_type=Debug -s arch=x86')
+        
+        compiler = '-s compiler="Visual Studio" -s compiler.version=10 '
+        test(compiler + '-s build_type=Release -s arch=x86')
+        test(compiler + '-s build_type=Debug -s arch=x86')
     else:
         # x86_64
         test(compiler + '-s build_type=Release -s arch=x86_64')

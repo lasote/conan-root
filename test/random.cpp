@@ -4,6 +4,7 @@
 # include <iostream>
 # include "TRandom.h"
 # include "time.h"
+# include <stdlib.h> 
 
 using namespace std;
 
@@ -40,7 +41,9 @@ int main(int argc, char **argv)
   }
   else
   {
-    Int_t parameter = (Int_t) strtof(argv[1], NULL);  // convert the second parameter to an integer
+    float f;
+    sscanf(argv[1], "%f", &f);
+    Int_t parameter = (Int_t) f;  // convert the second parameter to an integer
     random_mean(parameter);
   }
 }
